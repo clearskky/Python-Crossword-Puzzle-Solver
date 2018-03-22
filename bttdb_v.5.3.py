@@ -1,21 +1,23 @@
 def sonuc(ikib_liste, aranacaklar_listesi):
-    kelime_harf_indis = dict()
+    harf_index_dict = dict()
     for kelime in aranacaklar_listesi:
-        try:
-            for satir in ikib_liste:
-                for harf in satir:
-                    if harf == kelime[0]:
-                        yonlerikontrolet(ikib_liste, kelime, ikib_liste.index(satir), satir.index(harf), harf, kelime_harf_indis)
-                        if len(kelime_harf_indis[kelime]) == len(kelime):
-                            print(fucktrabzon)
-        except:
-            continue
+        harf_index_dict[kelime] = {}
+        breakLoop = True
+        for satir in range(len(ikib_liste)):
+            for sutun in range(len(ikib_liste[satir])):
+                if ikib_liste[satir][sutun] == kelime[0]:
+                    yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf_index_dict)
+                    if len(harf_index_dict[kelime]) == len(kelime):
+                        breakLoop = False
+                        break
+            if breakLoop == False:
+                break
 
-    print(kelime_harf_indis)
+    for index in harf_index_dict:
+        print(index + ': ' + index[0] + '=' + str(list(harf_index_dict[index].keys())[0]) + ' ' + index[len(index) - 1] + '=' + str(list(harf_index_dict[index].keys())[len(index) - 1]))
 
 
-def yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf, indis_dict):
-    indis_dict[kelime] = {}
+def yonlerikontrolet(ikib_liste, kelime, satir, sutun, indis_dict):
     backup_satir = satir
     backup_sutun = sutun
 
@@ -27,7 +29,6 @@ def yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf, indis_dict):
                 satir -= 1
                 if len(indis_dict[kelime]) == len(kelime):
                     return indis_dict
-                continue
             else:
                 indis_dict[kelime].clear()
                 satir = backup_satir
@@ -48,7 +49,6 @@ def yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf, indis_dict):
                 sutun += 1
                 if len(indis_dict[kelime]) == len(kelime):
                     return indis_dict
-                continue
             else:
                 indis_dict[kelime].clear()
                 satir = backup_satir
@@ -68,7 +68,6 @@ def yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf, indis_dict):
                 sutun += 1
                 if len(indis_dict[kelime]) == len(kelime):
                     return indis_dict
-                continue
             else:
                 indis_dict[kelime].clear()
                 satir = backup_satir
@@ -89,7 +88,6 @@ def yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf, indis_dict):
                 sutun += 1
                 if len(indis_dict[kelime]) == len(kelime):
                     return indis_dict
-                continue
             else:
                 indis_dict[kelime].clear()
                 satir = backup_satir
@@ -109,7 +107,6 @@ def yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf, indis_dict):
                 satir += 1
                 if len(indis_dict[kelime]) == len(kelime):
                     return indis_dict
-                continue
             else:
                 indis_dict[kelime].clear()
                 satir = backup_satir
@@ -130,7 +127,6 @@ def yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf, indis_dict):
                 sutun -= 1
                 if len(indis_dict[kelime]) == len(kelime):
                     return indis_dict
-                continue
             else:
                 indis_dict[kelime].clear()
                 satir = backup_satir
@@ -142,7 +138,7 @@ def yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf, indis_dict):
             sutun = backup_sutun
             break
 
-    # Kuzey yönünü kontrol
+    # Batı yönünü kontrol
     for karakter in kelime:
         try:
             if ikib_liste[satir][sutun] == karakter:
@@ -150,7 +146,6 @@ def yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf, indis_dict):
                 sutun -= 1
                 if len(indis_dict[kelime]) == len(kelime):
                     return indis_dict
-                continue
             else:
                 indis_dict[kelime].clear()
                 satir = backup_satir
@@ -171,7 +166,6 @@ def yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf, indis_dict):
                 sutun -= 1
                 if len(indis_dict[kelime]) == len(kelime):
                     return indis_dict
-                continue
             else:
                 indis_dict[kelime].clear()
                 satir = backup_satir
@@ -183,13 +177,12 @@ def yonlerikontrolet(ikib_liste, kelime, satir, sutun, harf, indis_dict):
             sutun = backup_sutun
             break
 
-
     return indis_dict
 
 chars2D = [
         ('B', 'M', 'H', 'V', 'D', 'Ş', 'L', 'İ', 'Ü', 'S'),
         ('Y', 'N', 'Ü', 'G', 'Z', 'Ü', 'A', 'T', 'T', 'P'),
-        ('F', 'G', 'A', 'R', 'İ', 'P', 'N', 'İ', 'G', 'N'),
+        ('F', 'G', 'G', 'A', 'R', 'İ', 'P', 'İ', 'G', 'N'),
         ('Y', 'A', 'M', 'U', 'Ö', 'L', 'O', 'D', 'İ', 'O'),
         ('C', 'L', 'H', 'D', 'F', 'Ç', 'E', 'K', 'G', 'H'),
         ('F', 'H', 'S', 'U', 'A', 'E', 'K', 'Ü', 'A', 'T'),
@@ -198,8 +191,8 @@ chars2D = [
         ('N', 'A', 'I', 'Z', 'E', 'H', 'Ğ', 'A', 'İ', 'İ'),
         ('P', 'S', 'Ü', 'K', 'P', 'Ğ', 'I', 'P', 'J', 'D')]
 
-aranacaklar_listesi = ["PYTHON", "GARİP", "TUHAF", "PALYAÇO", "GÜLMEK", "ÜZGÜN", "DİCLE"]
+aranacaklar_listesi = ["GARİP", "TUHAF", "PALYAÇO", "GÜLMEK", "ÜZGÜN", "DİCLE"]
 
 sonuc(chars2D, aranacaklar_listesi)
 
-input("Programdan çıkmak için bir şey gir: ")
+print("FREEEDOOOOOOM")
